@@ -1,4 +1,4 @@
-# Prometheus &amp; grafana on a Raspberry Pi
+# Prometheus &amp; Grafana on a Raspberry Pi
 Using docker-compose to run Prometheus &amp; Grafana on a Raspberry Pi
 
 ### Credit
