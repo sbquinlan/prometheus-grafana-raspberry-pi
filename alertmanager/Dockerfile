@@ -1,2 +1,2 @@
-FROM prom/alertmanager:0.1.1
+FROM prom/alertmanager-linux-armv7
 COPY ./alertmanager.yml /alertmanager.yml

@@ -1,44 +1,39 @@
 # docker-compose.yml
-version: '2'
+version: '3'
 services:
     prometheus:
+        container_name: prometheus
         build: ./prometheus
         volumes:
             - prometheus_data:/prometheus
         command:
-            - '-config.file=/etc/prometheus/prometheus.yml'
-            - '-alertmanager.url=http://alertmanager:9093'
+            - '--config.file=/etc/prometheus/prometheus.yml'
+        ports:
+            - "9090:9090"
     node-exporter:
-        image: prom/node-exporter:v0.13.0
+        container_name: node-exporter
+        image: prom/node-exporter-linux-armv7
+        ports:
+            - "9100:9100"
     grafana:
-        image: grafana/grafana:3.0.1
+        container_name: grafana
+        image: grafana/grafana:5.4.3
         environment:
-            - GF_SECURITY_ADMIN_PASSWORD=pass
+            - GF_SECURITY_ADMIN_PASSWORD=password
         volumes:
             - grafana_data:/var/lib/grafana
         depends_on:
             - prometheus
+        ports:
+            - "3000:3000"
     alertmanager:
+        container_name: alertmanager
         build: ./alertmanager
         command:
-            - '-config.file=/alertmanager.yml'
-    ssl:
-        image: opencapacity/lets-nginx:1.3
-        environment:
-            - EMAIL=webmaster@opencapacity.co
-            - DOMAIN=test.opencapacity.co
-            - UPSTREAM=grafana:3000
+            - '--config.file=/alertmanager.yml'
         ports:
-            - "443:443"
-        volumes:
-            - letsencrypt:/etc/letsencrypt
-            - letsencrypt_backups:/var/lib/letsencrypt
-            - dhparam_cache:/cache
-        depends_on:
-            - grafana
+            - "9093:9093"
 volumes:
     prometheus_data: {}
     grafana_data: {}
-    letsencrypt: {}
-    letsencrypt_backups: {}
     dhparam_cache: {}
