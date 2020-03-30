@@ -16,6 +16,42 @@ Instructions from [dev.to](https://dev.to/rohansawant/installing-docker-and-dock
 * Prometheus should now be running at `http://raspberrypi.local:9090`
 * Grafana should now be running at `http://raspberrypi.local:3000`
 
+## Prometheus.yml for multiple targets
+
+If you're wanting to scrape from multiple targets, the `prometheus.yml` could look something like this:
+
+```yaml
+# prometheus.yml
+global:
+  scrape_interval: 5s
+  external_labels:
+    monitor: 'my-monitor'
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+  - job_name: 'environment'
+    static_configs:
+      - targets: ['10.1.1.2:8000']
+        labels:
+          group: 'environment'
+          location: 'Melbourne'
+      - targets: ['11.1.1.2:8000']
+        labels:
+          group: 'environment'
+          location: 'Adelaide'
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+      - targets: ['alertmanager:9093']
+#rule_files:
+#  - 'alert.rules'
+```
+
 ## To export your data
 
 Use the [Snapshot API](https://prometheus.io/docs/prometheus/2.1/querying/api/#snapshot).
