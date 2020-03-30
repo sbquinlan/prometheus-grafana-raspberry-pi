@@ -16,6 +16,13 @@ Instructions from [dev.to](https://dev.to/rohansawant/installing-docker-and-dock
 * Prometheus should now be running at `http://raspberrypi.local:9090`
 * Grafana should now be running at `http://raspberrypi.local:3000`
 
+## To export your data
+
+Use the [Snapshot API](https://prometheus.io/docs/prometheus/2.1/querying/api/#snapshot).
+
+* Enable it by passing the flag when running Prometheus `--web.enable-admin-api`
+* Curl the Snapshot API: `curl -XPOST http://raspberrypi.local:9090/api/v1/admin/tsdb/snapshot`
+
 ### Credit
 Thanks to [finestructure](https://github.com/finestructure/blogpost-prometheus) for the base.
 
