@@ -52,6 +52,29 @@ alerting:
 #  - 'alert.rules'
 ```
 
+## To change the data retention time
+
+The Prometheus part of your `docker-compose.yml` should add `--storage.tsdb.retention.time=1y` where 1y is 1 year, and should look something like this:
+
+```yaml
+# docker-compose.yml
+version: '3'
+services:
+    prometheus:
+        container_name: prometheus
+        build: ./prometheus
+        volumes:
+            - prometheus_data:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--web.console.libraries=/etc/prometheus/console_libraries'
+            - '--web.console.templates=/etc/prometheus/consoles'
+            - '--storage.tsdb.retention.time=1y'
+            - '--web.enable-lifecycle'
+        ports:
+            - "9090:9090"
+```
+
 ## To export your data
 
 Use the [Snapshot API](https://prometheus.io/docs/prometheus/2.1/querying/api/#snapshot).
