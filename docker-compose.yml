@@ -3,6 +3,8 @@ version: '3'
 services:
     prometheus:
         container_name: prometheus
+        # If running on a 32-bit Raspberry Pi, use:
+        # image: prom/prometheus:v1.7.2
         build: ./prometheus
         volumes:
             - prometheus_data:/prometheus
@@ -14,11 +16,13 @@ services:
             - '--web.enable-lifecycle'
         ports:
             - "9090:9090"
+        restart: on-failure
     node-exporter:
         container_name: node-exporter
         image: prom/node-exporter-linux-armv7
         ports:
             - "9100:9100"
+        restart: on-failure
     grafana:
         container_name: grafana
         image: grafana/grafana:5.4.3
@@ -34,6 +38,7 @@ services:
             - prometheus
         ports:
             - "3000:3000"
+        restart: on-failure
     alertmanager:
         container_name: alertmanager
         build: ./alertmanager
@@ -41,6 +46,7 @@ services:
             - '--config.file=/alertmanager.yml'
         ports:
             - "9093:9093"
+        restart: on-failure
 volumes:
     prometheus_data: {}
     grafana_data: {}

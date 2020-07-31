@@ -16,6 +16,34 @@ Instructions from [dev.to](https://dev.to/rohansawant/installing-docker-and-dock
 * Prometheus should now be running at `http://raspberrypi.local:9090`
 * Grafana should now be running at `http://raspberrypi.local:3000`
 
+## Using a 32-bit Raspberry Pi
+
+I've had [a problem similar to this one](https://github.com/prometheus/prometheus/issues/7483) with my 32-bit Raspberry Pi failing compacting when setup with a retention time of 1 year, and scraping every 10 seconds.
+
+Pinning Prometheus to `1.7.2` that doesn't use `mmap` seems to have fixed it. To do that your `docker-compose.yml` might look like this:
+
+```yaml
+# docker-compose.yml
+version: '3'
+services:
+    prometheus:
+        container_name: prometheus
+        # For a 32-bit Raspberry Pi
+        image: prom/prometheus:v1.7.2
+        build: ./prometheus
+        volumes:
+            - prometheus_data:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--web.console.libraries=/etc/prometheus/console_libraries'
+            - '--web.console.templates=/etc/prometheus/consoles'
+            - '--storage.tsdb.retention.time=1y'
+            - '--web.enable-lifecycle'
+        ports:
+            - "9090:9090"
+        restart: on-failure
+```
+
 ## Prometheus.yml for multiple targets
 
 If you're wanting to scrape from multiple targets, the `prometheus.yml` could look something like this:
@@ -73,6 +101,7 @@ services:
             - '--web.enable-lifecycle'
         ports:
             - "9090:9090"
+        restart: on-failure
 ```
 
 ## To export your data
