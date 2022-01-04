@@ -25,7 +25,7 @@ services:
         restart: on-failure
     grafana:
         container_name: grafana
-        image: grafana/grafana:8.1.2
+        image: grafana/grafana:latest
         environment:
             - GF_SECURITY_ADMIN_PASSWORD=password
             - GF_AUTH_ANONYMOUS_ENABLED=true
