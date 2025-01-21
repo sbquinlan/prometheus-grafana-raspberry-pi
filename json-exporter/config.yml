@@ -1,6 +1,9 @@
 ---
 modules:
   airquality:
+    http_client_config:
+      tls_config:
+        insecure_skip_verify: true
     metrics:
     - name: sensor
       type: object

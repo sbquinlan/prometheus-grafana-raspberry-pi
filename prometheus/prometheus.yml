@@ -15,13 +15,17 @@ scrape_configs:
   - job_name: 'airquality'
     static_configs:
       - targets:
-        - http://ag-bedrooms/metrics
-        - http://ag-living/metrics
-        - http://ag-office/metrics
+        - http://ag-bedrooms.cincoptimo.com
+        - http://ag-living.cincoptimo.com
+        - http://ag-office.cincoptimo.com
+        - http://ag-outside.cincoptimo.com
+    metrics_path: '/metrics'
     relabel_configs:
       - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
+        regex: '(.*?)\.cincoptimo\.com.*'
+        target_label: instance
+        replacement: '$1'
+      - source_labels: [__address__]
         target_label: instance
       - target_label: __address__
         replacement: json-exporter:7979
