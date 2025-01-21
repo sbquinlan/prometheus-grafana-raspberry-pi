@@ -19,6 +19,7 @@ scrape_configs:
         - http://ag-living.cincoptimo.com/metrics
         - http://ag-office.cincoptimo.com/metrics
         - http://ag-outside.cincoptimo.com/metrics
+    metrics_path: /probe
     relabel_configs:
       - source_labels: [__address__]
         regex: 'http://(.*)\.cincoptimo\.com.*'

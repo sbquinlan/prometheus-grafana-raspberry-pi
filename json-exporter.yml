@@ -4,7 +4,7 @@ modules:
       - name: sensor_temperature
         help: Ambient temperature from sensor
         path: '{.atmp}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -13,7 +13,7 @@ modules:
       - name: sensor_humidity
         help: Relative humidity from sensor
         path: '{.rhum}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -22,7 +22,7 @@ modules:
       - name: sensor_co2
         help: CO2 level from sensor
         path: '{.rco2}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -31,7 +31,7 @@ modules:
       - name: sensor_pm01
         help: PM0.1 particulate matter level
         path: '{.pm01}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -40,7 +40,7 @@ modules:
       - name: sensor_pm02
         help: PM2.5 particulate matter level
         path: '{.pm02}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -49,7 +49,7 @@ modules:
       - name: sensor_pm10
         help: PM10 particulate matter level
         path: '{.pm10}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -58,7 +58,7 @@ modules:
       - name: sensor_pm003_count
         help: PM0.03 particulate count
         path: '{.pm003_count}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -67,7 +67,7 @@ modules:
       - name: sensor_tvoc_index
         help: Total Volatile Organic Compounds index
         path: '{.tvoc_index}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -76,7 +76,7 @@ modules:
       - name: sensor_nox_index
         help: Nitrogen Oxides index
         path: '{.nox_index}'
-        type: gauge
+        type: GAUGE
         labels:
           id: '{.id}'
           mac: '{.mac}'
@@ -84,7 +84,7 @@ modules:
 
       - name: sensor_info
         help: Static information about the sensor
-        type: gauge
+        type: GAUGE
         path: '{}'
         labels:
           id: '{.id}'
