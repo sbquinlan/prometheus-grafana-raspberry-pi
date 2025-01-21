@@ -1,9 +1,9 @@
 services:
     prometheus:
-        container_name: prometheus
-        build: ./prometheus
+        image: prom/prometheus:v3.1.0
         volumes:
             - prometheus_data:/prometheus
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
         command:
             - '--config.file=/etc/prometheus/prometheus.yml'
             - '--web.console.libraries=/etc/prometheus/console_libraries'
@@ -36,8 +36,9 @@ services:
             - "3000:3000"
         restart: on-failure
     json-exporter:
-        container_name: json-exporter
-        build: ./json-exporter
+        image: prometheuscommunity/json-exporter:v0.6.0
+        volumes:
+            - ./json-exporter.yml:/config.yml
         ports:
             - "7979:7979"
         restart: on-failure
