@@ -3,8 +3,6 @@ version: '3'
 services:
     prometheus:
         container_name: prometheus
-        # If running on a 32-bit Raspberry Pi, use:
-        # image: prom/prometheus:v1.7.2
         build: ./prometheus
         volumes:
             - prometheus_data:/prometheus
@@ -39,13 +37,11 @@ services:
         ports:
             - "3000:3000"
         restart: on-failure
-    alertmanager:
-        container_name: alertmanager
-        build: ./alertmanager
-        command:
-            - '--config.file=/alertmanager.yml'
+    json-exporter:
+        container_name: json-exporter
+        build: ./json-exporter
         ports:
-            - "9093:9093"
+            - "7979:7979"
         restart: on-failure
 volumes:
     prometheus_data: {}

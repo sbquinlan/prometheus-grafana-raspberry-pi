@@ -1,0 +1,22 @@
+---
+modules:
+  airquality:
+    metrics:
+    - name: sensor
+      type: object
+      help: 'Sensor data'
+      path: '{ . }'
+      labels:
+        id: '{ .id }'
+        mac: '{ .mac }'
+        hostname: '{ .hostname }'
+      values:
+        rco2: '{ .rco2 }'
+        pm01: '{ .pm01 }'
+        pm02: '{ .pm02 }'
+        pm10: '{ .pm10 }'
+        pm003_count: '{ .pm003_count }'
+        tvoc_index: '{ .tvoc_index }'
+        nox_index: '{ .nox_index }'
+        atmp: '{ .atmp }'
+        rhum: '{ .rhum }'
