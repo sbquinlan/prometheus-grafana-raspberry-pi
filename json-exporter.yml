@@ -1,25 +1,93 @@
----
 modules:
-  airquality:
-    http_client_config:
-      tls_config:
-        insecure_skip_verify: true
+  default:
     metrics:
-    - name: sensor
-      type: object
-      help: 'Sensor data'
-      path: '{ . }'
-      labels:
-        id: '{ .id }'
-        mac: '{ .mac }'
-        hostname: '{ .hostname }'
-      values:
-        rco2: '{ .rco2 }'
-        pm01: '{ .pm01 }'
-        pm02: '{ .pm02 }'
-        pm10: '{ .pm10 }'
-        pm003_count: '{ .pm003_count }'
-        tvoc_index: '{ .tvoc_index }'
-        nox_index: '{ .nox_index }'
-        atmp: '{ .atmp }'
-        rhum: '{ .rhum }'
+      - name: sensor_temperature
+        help: Ambient temperature from sensor
+        path: '{.atmp}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_humidity
+        help: Relative humidity from sensor
+        path: '{.rhum}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_co2
+        help: CO2 level from sensor
+        path: '{.rco2}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_pm01
+        help: PM0.1 particulate matter level
+        path: '{.pm01}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_pm02
+        help: PM2.5 particulate matter level
+        path: '{.pm02}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_pm10
+        help: PM10 particulate matter level
+        path: '{.pm10}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_pm003_count
+        help: PM0.03 particulate count
+        path: '{.pm003_count}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_tvoc_index
+        help: Total Volatile Organic Compounds index
+        path: '{.tvoc_index}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_nox_index
+        help: Nitrogen Oxides index
+        path: '{.nox_index}'
+        type: gauge
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+
+      - name: sensor_info
+        help: Static information about the sensor
+        type: gauge
+        path: '{}'
+        labels:
+          id: '{.id}'
+          mac: '{.mac}'
+          hostname: '{.hostname}'
+        value: '1'
