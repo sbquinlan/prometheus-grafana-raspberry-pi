@@ -15,14 +15,14 @@ scrape_configs:
   - job_name: 'airquality'
     static_configs:
       - targets:
-        - http://ag-bedrooms.cincoptimo.com/metrics
-        - http://ag-living.cincoptimo.com/metrics
-        - http://ag-office.cincoptimo.com/metrics
-        - http://ag-outside.cincoptimo.com/metrics
+        - http://ag-bedrooms/metrics
+        - http://ag-living/metrics
+        - http://ag-office/metrics
+        - http://ag-outside/metrics
     metrics_path: /probe
     relabel_configs:
       - source_labels: [__address__]
-        regex: 'http://(.*)\.cincoptimo\.com.*'
+        regex: 'http://(.*)/metrics'
         target_label: instance
         replacement: '$1'
       - source_labels: [__address__]

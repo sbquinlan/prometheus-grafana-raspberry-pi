@@ -1,5 +1,6 @@
 services:
     prometheus:
+        container_name: prometheus
         image: prom/prometheus:v3.1.0
         volumes:
             - prometheus_data:/prometheus
@@ -19,23 +20,8 @@ services:
         ports:
             - "9100:9100"
         restart: on-failure
-    grafana:
-        container_name: grafana
-        image: grafana/grafana:11.4.0
-        environment:
-            - GF_SECURITY_ADMIN_PASSWORD=password
-            - GF_AUTH_ANONYMOUS_ENABLED=true
-            - GF_AUTH_DISABLE_LOGIN_FORM=false
-            - GF_ORG_NAME=Main Org.
-            - GF_ORG_ROLE=viewer
-        volumes:
-            - grafana_data:/var/lib/grafana
-        depends_on:
-            - prometheus
-        ports:
-            - "3000:3000"
-        restart: on-failure
     json-exporter:
+        container_name: json-exporter
         image: prometheuscommunity/json-exporter:v0.6.0
         volumes:
             - ./json-exporter.yml:/config.yml
@@ -44,5 +30,4 @@ services:
         restart: on-failure
 volumes:
     prometheus_data: {}
-    grafana_data: {}
     dhparam_cache: {}
