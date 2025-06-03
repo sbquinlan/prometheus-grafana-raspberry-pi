@@ -22,4 +22,4 @@ COPY --from=builder /usr/local/cargo/bin/nws_exporter /usr/local/bin/nws_exporte
 EXPOSE 8000
 
 # Run the exporter
-ENTRYPOINT ["nws_exporter", "${NWS_LOCATION:-}"]
+ENTRYPOINT ["nws_exporter"]

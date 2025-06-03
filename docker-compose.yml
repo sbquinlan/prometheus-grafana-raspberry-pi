@@ -25,8 +25,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.nws_exporter
-        environment:
-            - NWS_LOCATION=SFO1
+        command: ["SFO1"]
         ports:
             - "7978:7978"
         restart: on-failure
