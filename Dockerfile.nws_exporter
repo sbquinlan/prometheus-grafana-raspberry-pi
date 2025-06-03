@@ -1,0 +1,25 @@
+FROM rust:1.77-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Download source and build
+RUN cargo install nws_exporter
+
+# Final image
+FROM debian:bookworm-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
+# Copy binary from builder
+COPY --from=builder /usr/local/cargo/bin/nws_exporter /usr/local/bin/nws_exporter
+
+# Expose default port
+EXPOSE 8000
+
+# Run the exporter
+ENTRYPOINT ["nws_exporter", "${NWS_LOCATION:-}"]

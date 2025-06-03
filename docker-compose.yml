@@ -20,6 +20,16 @@ services:
         ports:
             - "9100:9100"
         restart: on-failure
+    nws-exporter:
+        container_name: nws-exporter
+        build:
+            context: .
+            dockerfile: Dockerfile.nws_exporter
+        environment:
+            - NWS_LOCATION=SFO1
+        ports:
+            - "7978:7978"
+        restart: on-failure
     json-exporter:
         container_name: json-exporter
         image: prometheuscommunity/json-exporter:v0.6.0
