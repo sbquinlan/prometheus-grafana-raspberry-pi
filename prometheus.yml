@@ -11,7 +11,7 @@ scrape_configs:
       - targets: ['node-exporter:9100']
   - job_name: 'nws-exporter'
     static_configs:
-      - targets: ['nws-exporter:7978']
+      - targets: ['nws-exporter:9782']
   - job_name: 'json-exporter'
     static_configs:
       - targets: ['json-exporter:7979']
