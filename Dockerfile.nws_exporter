@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/
 COPY --from=builder /usr/local/cargo/bin/nws_exporter /usr/local/bin/nws_exporter
 
 # Expose default port
-EXPOSE 8000
+EXPOSE 9782
 
 # Run the exporter
 ENTRYPOINT ["nws_exporter"]

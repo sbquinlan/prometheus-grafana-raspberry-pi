@@ -27,7 +27,7 @@ services:
             dockerfile: Dockerfile.nws_exporter
         command: ["SFOC1"]
         ports:
-            - "7978:7978"
+            - "9782:9782"
         restart: on-failure
     json-exporter:
         container_name: json-exporter
